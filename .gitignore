@@ -1,0 +1,7 @@
+# Node modules (install with npm install)
+node_modules/
+
+.env
+
+uploads/
+*.log.txt

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Schedule Bulk Email</title>
+  </head>
+  <body>
+    <div class="max-w-xl mx-auto p-6 bg-white shadow-md rounded-md mt-10">
+      <h2 class="text-2xl font-semibold text-red-600 mb-6 text-center">
+        Schedule Bulk Email
+      </h2>
+      <a href="/settings.html">SMTP Settings</a>
+      <form id="bulkForm" enctype="multipart/form-data" class="space-y-5">
+        <div>
+          <label class="block text-gray-700 font-medium mb-1"
+            >Upload Excel File (.xlsx):</label
+          >
+          <input
+            type="file"
+            name="excel"
+            accept=".xlsx"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
+          />
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Message:</label>
+          <textarea
+            name="message"
+            rows="5"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-red-400"
+          ></textarea>
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Send At:</label>
+          <input
+            type="datetime-local"
+            name="sendAt"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
+          />
+        </div>
+
+        <div class="text-center">
+          <button
+            type="submit"
+            class="bg-red-500 text-white font-semibold px-6 py-2 rounded-md hover:bg-red-600 transition duration-200"
+          >
+            Upload & Schedule
+          </button>
+        </div>
+      </form>
+
+      <p id="bulkResponse" class="mt-4 text-center text-sm text-green-600"></p>
+
+      <hr class="my-6 border-t border-gray-300" />
+
+      <div class="text-center">
+        <a href="/history.html" class="text-blue-600 hover:underline"
+          >View Scheduled Email History</a
+        >
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("bulkForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const form = e.target;
+          const formData = new FormData(form);
+          const res = await fetch("/upload", {
+            method: "POST",
+            body: formData,
+          });
+          const result = await res.json();
+          document.getElementById("bulkResponse").innerText =
+            result.message || "Error";
+        });
+    </script>
+  </body>
+</html>
