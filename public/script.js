@@ -145,7 +145,8 @@ document.addEventListener('DOMContentLoaded', function() {
       formData.append('filename', selectedFilename.value);
       formData.append('subject', document.getElementById('subject').value);
       formData.append('message', messageInput.value);
-      formData.append('scheduleDate', document.getElementById('scheduleDate').value);
+      const localDate = new Date(document.getElementById('scheduleDate').value);
+      formData.append('scheduleDate', localDate.toISOString());
       formData.append('repetition', document.getElementById('repetition').value);
       
       // Add attachments if any
