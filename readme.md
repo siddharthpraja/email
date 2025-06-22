@@ -1,37 +1,61 @@
-Sure! Here’s a polished, clear prompt you can use if you want to ask for this full project — either for me or for any developer:
+**Prompt:**  
+"I need a complete Node.js email scheduling application with the following features:
 
----
+1. **Excel File Processing**:
+   - Accept .xlsx file uploads containing email lists
+   - Files must contain an 'email' column (case insensitive)
+   - Store uploaded files on server with original filenames
 
-**Prompt:**
+2. **Email Scheduling**:
+   - Allow composing email subject and message
+   - Schedule sending for specific date/time
+   - Support recurring schedules (daily/weekly/monthly)
+   - Include file attachment support
+   - Format-preserving email sending (maintains line breaks/formatting)
 
-*I want to build a Node.js email scheduling app with the following features:*
+3. **Management Interface**:
+   - Dashboard showing uploaded files
+   - History of scheduled jobs
+   - Ability to view/download/delete uploaded files
+   - Cancel scheduled jobs
 
-* Upload multiple Excel (.xlsx) files containing lists of emails (with an "email" column).
-* Store uploaded files on the server using the original filename (no database needed).
-* Parse the Excel to extract emails, and schedule sending a custom message via SMTP (Gmail) to those emails at a user-specified date/time.
-* Allow users to unsubscribe via a unique unsubscribe link included in each email.
-* Provide a frontend with:
+4. **Subscription Management**:
+   - Unique unsubscribe links in each email
+   - Track unsubscribed emails in memory
 
-  * An index page to upload Excel, write the message, and select the schedule datetime.
-  * A history page listing all uploaded Excel filenames.
+5. **Technical Requirements**:
+   - Node.js backend with Express
+   - Multer for file uploads
+   - XLSX library for Excel parsing
+   - node-schedule for job scheduling
+   - Nodemailer for email sending
+   - No database (filesystem storage only)
+   - Simple frontend with HTML/CSS/JS
 
-    * Clicking a filename shows the list of emails from that file.
-    * Option to download the original Excel file.
-* Use dotenv for config like SMTP credentials.
-* No database — keep unsubscribe list in memory (Set).
-* Use Multer for file uploads.
-* Use node-schedule for scheduling emails.
-* Use XLSX library to read Excel files.
-* Implement REST API endpoints to support the frontend functionality.
-* Use Nodemailer to send emails.
-* Provide HTML pages for:
+6. **Complete Implementation**:
+   - Working server.js with all API endpoints
+   - Frontend pages (index.html, history.html, unsubscribe.html)
+   - CSS styling
+   - Client-side JavaScript
+   - Proper error handling
+   - Sample .env file
 
-  * Upload/schedule form
-  * History + email list display + download link
-  * Unsubscribe confirmation page
+7. **Special Considerations**:
+   - Preserve exact email formatting (paragraphs, line breaks)
+   - Maintain history between server restarts
+   - Handle file uploads securely
+   - Clear documentation for setup
 
-*Please provide complete working code for the server (server.js), the frontend pages (index.html, history.html, unsubscribe.html), the .env example, and instructions to run.*
+The solution should include:
+1. Complete server.js implementation
+2. All frontend pages with working UI
+3. CSS styling
+4. Client-side JavaScript
+5. Sample environment file
+6. Clear setup instructions
 
----
-
-If you want, I can help you polish or tailor it further!
+All components must work together seamlessly with:
+- Proper email formatting preservation
+- Accurate history tracking
+- Functional unsubscribe system
+- Reliable file handling"

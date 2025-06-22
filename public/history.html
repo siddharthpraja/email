@@ -1,79 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Email History</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans p-6">
-
-  <div class="max-w-3xl mx-auto bg-white shadow-md rounded-md p-6">
-    <h2 class="text-2xl font-semibold text-red-600 mb-4 text-center">Scheduled Email History</h2>
-
-    <ul id="fileList" class="space-y-2 mb-6"></ul>
-
-    <div id="emails" class="mt-4"></div>
-
-    <div class="mt-6 text-center">
-      <a href="/" class="text-blue-600 hover:underline">← Back to Schedule</a>
+<body>
+  <div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1>Email History</h1>
+      <a href="/" class="btn btn-outline-primary">Back to Scheduler</a>
+    </div> 
+  
+    
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span>Uploaded Files</span>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Filename</th>
+              <th>Upload Date</th>
+              <th>Emails</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="fileList">
+            <!-- Files will be loaded here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <div class="card mt-4">
+      <div class="card-header">
+        Scheduled Jobs
+      </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Filename</th>
+              <th>Scheduled Date</th>
+              <th>Repetition</th>
+              <th>Subject</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="jobList">
+            <!-- Jobs will be loaded here -->
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
-  <script>
-    async function loadFiles() {
-      const res = await fetch('/history');
-      const files = await res.json();
-      const list = document.getElementById('fileList');
-      list.innerHTML = '';
-      if(files.length === 0) {
-        list.innerHTML = '<p class="text-center text-gray-500">No history found.</p>';
-        return;
-      }
-      files.forEach(file => {
-        const li = document.createElement('li');
-        li.textContent = file;
-        li.className = 'cursor-pointer text-blue-600 underline hover:text-blue-800';
-        li.addEventListener('click', () => showEmails(file));
-        list.appendChild(li);
-      });
-    }
+  <!-- Modal for job details -->
+  <div class="modal fade" id="emailListModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="emailListModalTitle">Email List</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="emailListContent">
+        <!-- Email list content will be injected here by JavaScript -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-    async function showEmails(file) {
-      const emailsDiv = document.getElementById('emails');
-      emailsDiv.innerHTML = '<p class="text-gray-500 text-center">Loading emails...</p>';
-
-      try {
-        const res = await fetch(`/history/emails?file=${encodeURIComponent(file)}`);
-        if (!res.ok) throw new Error('Failed to load emails');
-        const emails = await res.json();
-
-        let html = `
-          <div class="mt-4">
-            <h3 class="text-xl font-medium text-gray-800 mb-2">Emails in <span class="text-red-500">${file}</span></h3>
-            <button onclick="downloadFile('${file}')" 
-                    class="mb-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
-              Download Excel
-            </button>`;
-
-        if(emails.length === 0) {
-          html += '<p class="text-gray-500">No emails found.</p>';
-        } else {
-          html += '<ul class="list-disc pl-5 space-y-1">' + emails.map(e => `<li>${e}</li>`).join('') + '</ul>';
-        }
-
-        html += '</div>';
-        emailsDiv.innerHTML = html;
-      } catch (err) {
-        emailsDiv.innerHTML = `<p class="text-red-500">Error loading emails: ${err.message}</p>`;
-      }
-    }
-
-    function downloadFile(file) {
-      window.location.href = `/download?file=${encodeURIComponent(file)}`;
-    }
-
-    loadFiles();
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

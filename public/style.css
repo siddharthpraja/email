@@ -1,0 +1,72 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+}
+
+.container {
+  max-width: 1200px;
+}
+
+.card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.card-header {
+  background-color: #0d6efd;
+  color: white;
+  font-weight: bold;
+}
+
+#emailPreview {
+  min-height: 200px;
+  border: 1px solid #dee2e6;
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+}
+
+.status-message {
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.status-success {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.status-error {
+  background-color: #f8d7da;
+  color: #842029;
+}
+
+#fileList tr, #jobList tr {
+  cursor: pointer;
+}
+
+#fileList tr:hover, #jobList tr:hover {
+  background-color: #f1f1f1;
+}
+
+.modal-content {
+  border: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#unsubscribeContent {
+  padding: 20px;
+}
+
+#unsubscribeEmail {
+  font-weight: bold;
+  font-size: 1.2em;
+}
